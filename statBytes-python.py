@@ -300,6 +300,3 @@ print r.table(yhat, Yr)
 # 
 # There are (at least) two ways to post a notebook online. For this notebook I pushed the .ipynb file to a public github repo, open the file on the github website, clicked the "raw" button, and pasted the URL into the box at the top of the nbviewer website. Pretty straightforward.
 
-# <codecell>
-
-
