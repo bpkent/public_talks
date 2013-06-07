@@ -37,6 +37,7 @@ import scipy as sp     ## grab-bag of statistical and science tools
 import matplotlib.pyplot as plt     ## matplotlib - plots
 import pandas as pd     ## emulates R data frames
 import statsmodels.api as sm     ## scikits.statsmodels - statistics library
+import patsy    ## emulates R model formulas
 
 import sklearn as skl     ## scikits.learn - machine learning library
 from sklearn import mixture as sklmix
@@ -59,9 +60,9 @@ from sklearn import mixture as sklmix
 # *Windows*
 # 
 # + Check out the bundled scientific python distributions.
-#   + Enthought (free for academic use): https://www.enthought.com/products/canopy/academic/
-#   + Anaconda (Continuum Analytics): https://store.continuum.io/
-#   + Python(x,y): https://code.google.com/p/pythonxy/
+#   + [Enthought](https://www.enthought.com/products/canopy/academic/) (free for academic use)
+#   + [Anaconda](https://store.continuum.io/) (Continuum Analytics)
+#   + [Python(x,y)](https://code.google.com/p/pythonxy/)
 
 # <headingcell level=4>
 
@@ -138,6 +139,18 @@ whos
 
 # <headingcell level=4>
 
+# Get help for a function
+
+# <codecell>
+
+# %pdoc sklmix.GMM
+# %psource sklmix.GMM
+
+#sklmix.GMM?
+#sklmix.GMM??
+
+# <headingcell level=4>
+
 # Pick your favorite clustering algorithm
 
 # <codecell>
@@ -184,14 +197,32 @@ print pd.crosstab(iris['Type'], yhat_hclust, rownames=['true'], colnames=['predi
 
 # <headingcell level=4>
 
+# Using non-base packages in Rpy2
+
+# <codecell>
+
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+r = robjects.r
+
+e1071 = importr('e1071')
+Yr = np2r(iris['Type'])
+Yr = r.factor(Yr)
+svm = e1071.svm(Xr, Yr)
+yhat = r.predict(svm, Xr)
+print r.table(yhat, Yr)
+
+# <headingcell level=4>
+
 # Python resources
 
 # <markdowncell>
 
-# + Python tutorial: http://docs.python.org/2/tutorial/ 
-# + Dive into Python: http://www.diveintopython.net/toc/index.html  (old but good)
-# + Ipython: http://ipython.org/
-# + Ipython video: https://www.youtube.com/watch?v=2G5YTlheCbw
+# + [Python tutorial](http://docs.python.org/2/tutorial/)
+# + [Dive into Python](http://www.diveintopython.net/toc/index.html) (old but good)
+# + [Ipython](http://ipython.org/)
+# + [Ipython video](https://www.youtube.com/watch?v=2G5YTlheCbw)
+# + [py2exe](http://www.py2exe.org/): compile python to a Windows executable file
 
 # <headingcell level=4>
 
@@ -199,13 +230,13 @@ print pd.crosstab(iris['Type'], yhat_hclust, rownames=['true'], colnames=['predi
 
 # <markdowncell>
 
-# + NumPy: http://www.numpy.org/
-# + SciPy: http://www.scipy.org/
-# + matplotlib: http://matplotlib.org/
-# + pandas: http://pandas.pydata.org/
-# + scikit-learn: http://scikit-learn.org/stable/
-# + statsmodels: http://statsmodels.sourceforge.net/
-# + patsy: http://patsy.readthedocs.org/en/latest/index.html (symbolic formulas for models)
+# + [NumPy](http://www.numpy.org/)
+# + [SciPy](http://www.scipy.org/)
+# + [matplotlib](http://matplotlib.org/)
+# + [pandas](http://pandas.pydata.org/)
+# + [scikit-learn](http://scikit-learn.org/stable/)
+# + [statsmodels](http://statsmodels.sourceforge.net/)
+# + [patsy](http://patsy.readthedocs.org/en/latest/index.html): symbolic formulas for models
 
 # <headingcell level=4>
 
@@ -213,10 +244,10 @@ print pd.crosstab(iris['Type'], yhat_hclust, rownames=['true'], colnames=['predi
 
 # <markdowncell>
 
-# + NumPy for MATLAB users: http://www.scipy.org/NumPy_for_Matlab_Users
-# + NumPy for MATLAB users: http://mathesaurus.sourceforge.net/matlab-numpy.html
-# + NumPy for R users: http://mathesaurus.sourceforge.net/r-numpy.html
-# + MATLAB vs. R vs. Python: http://hyperpolyglot.org/numerical-analysis
+# + [NumPy for MATLAB users, source 1](http://www.scipy.org/NumPy_for_Matlab_Users)
+# + [NumPy for MATLAB users, source 2](http://mathesaurus.sourceforge.net/matlab-numpy.html)
+# + [NumPy for R users](http://mathesaurus.sourceforge.net/r-numpy.html)
+# + [MATLAB vs. R vs. Python](http://hyperpolyglot.org/numerical-analysis)
 
 # <headingcell level=4>
 
@@ -224,12 +255,12 @@ print pd.crosstab(iris['Type'], yhat_hclust, rownames=['true'], colnames=['predi
 
 # <markdowncell>
 
-# + Fernando Perez (IPython): https://twitter.com/fperez_org
-# + Wes McKinney (pandas): https://twitter.com/wesmckinn
-# + PyData conference videos: http://pyvideo.org/category/18/pydata
-# + SciPy 2012 conference: http://pyvideo.org/category/20/scipy_2012
-# + Python for Data Analysis (book): http://www.amazon.com/books/dp/1449319793
-# + http://slendrmeans.wordpress.com/
+# + [Fernando Perez](https://twitter.com/fperez_org) (IPython)
+# + [Wes McKinney](https://twitter.com/wesmckinn) (pandas)
+# + [PyData conference videos](http://pyvideo.org/category/18/pydata)
+# + [SciPy 2012 conference videos](http://pyvideo.org/category/20/scipy_2012)
+# + [Python for Data Analysis](http://www.amazon.com/books/dp/1449319793) (Wes McKinney, 2012)
+# + [http://slendrmeans.wordpress.com/](http://slendrmeans.wordpress.com/)
 
 # <headingcell level=4>
 
@@ -245,4 +276,30 @@ print pd.crosstab(iris['Type'], yhat_hclust, rownames=['true'], colnames=['predi
 # + Written by computer scientists and programmers (not statisticians).
 # + Much bigger ecosystem of general language tools (but smaller set of statistics tools).
 # + Production-quality code.
+
+# <headingcell level=4>
+
+# Ipython Notebook
+
+# <markdowncell>
+
+# Relevant links:
+# 
+# + http://ipython.org/notebook.html
+# + https://github.com/ipython/nbconvert
+# + http://nbviewer.ipython.org/
+# 
+# For Ubuntu:
+# 
+# + `sudo apt-get install ipython-notebook`
+# + `ipython notebook --pylab=inline --script`
+# + `nbconvert latex statBytes-python`
+# + `pdflatex statBytes-python.tex`
+# 
+# The `--pylab==inline` flag embeds matplotlib output in the notebook rather than popping up a new window for each figure. The `--script` flat saves a `.py` script along with the `.ipynb` file which is ready to be run in a regular python or ipython prompt.
+# 
+# There are (at least) two ways to post a notebook online. For this notebook I pushed the .ipynb file to a public github repo, open the file on the github website, clicked the "raw" button, and pasted the URL into the box at the top of the nbviewer website. Pretty straightforward.
+
+# <codecell>
+
 
