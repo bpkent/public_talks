@@ -214,6 +214,34 @@ print r.table(yhat, Yr)
 
 # <headingcell level=4>
 
+# ggplot2 in python with Rpy2
+
+# <markdowncell>
+
+# Thanks to [Fei Yu](http://www.thefeiyu.com/) for this vignette.
+
+# <codecell>
+
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+
+r = robjects.r
+r.library("ggplot2")
+rnorm = r["rnorm"]
+
+dtf = robjects.DataFrame({'x': rnorm(300, mean=0) + rnorm(100, mean=3),
+                          'y': rnorm(300, mean=0) + rnorm(100, mean=3)})
+robjects.globalenv['dtf'] = dtf    # assign to R's environment
+r("gp = ggplot(dtf, aes(x, y))")
+r("pp = gp + geom_point(size=0.6)")
+# r("plot(pp)")    # I can't get this to work on my system, but saving the plot is just as good.
+r("ggsave(filename='test.png', plot=pp, scale=0.3)")
+
+from IPython.core.display import Image 
+Image(filename='test.png') 
+
+# <headingcell level=4>
+
 # Python resources
 
 # <markdowncell>
